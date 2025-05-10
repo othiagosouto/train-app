@@ -56,7 +56,7 @@ jobs:
         uses: ./.github/actions/setup-gradle
 
       - name: Build Android Sample
-        run: ./gradlew :androidApp:assembleGooglePlayDebug
+        run: ./gradlew :android:assembleDebug
 
   build-ios-app:
     name: Build iOS App
