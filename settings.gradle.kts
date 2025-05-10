@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Kmp-template"
+rootProject.name = "TrainApp"
 include(":android")
 include(":shared")
