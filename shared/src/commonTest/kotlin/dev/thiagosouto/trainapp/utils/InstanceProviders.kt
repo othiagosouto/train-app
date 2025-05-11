@@ -3,6 +3,7 @@ package dev.thiagosouto.trainapp.utils
 import dev.thiagosouto.trainapp.data.TasksRemote
 import dev.thiagosouto.trainapp.data.model.BaseUrl
 import dev.thiagosouto.trainapp.data.remote.DefaultTasksRemote
+import dev.thiagosouto.trainapp.data.remote.serviceResponseValidator
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -22,9 +23,13 @@ val json = Json {
     isLenient = true
 }
 
-fun createMockEngine(content: String, statusCode: HttpStatusCode = HttpStatusCode.OK) =
+fun createMockEngine(
+    content: String,
+    statusCode: HttpStatusCode = HttpStatusCode.OK,
+    url: String = TasksUrl
+) =
     MockEngine { request ->
-        if (request.url.toString() != TasksUrl) {
+        if (request.url.toString() != url) {
             fail("Unexpected request URL: ${request.url}")
         }
         respond(
@@ -42,10 +47,12 @@ fun createTasksRemote(
     baseUrl: BaseUrl = "https://gist.githubusercontent.com"
 ): TasksRemote = DefaultTasksRemote(
     json = json,
-    httpClient = HttpClient(mockEngine) {
+    httpClient = HttpClient(mockEngine)
+    {
         install(ContentNegotiation) {
             json(json = json)
         }
+        serviceResponseValidator()
     },
     baseUrl = baseUrl
 )
