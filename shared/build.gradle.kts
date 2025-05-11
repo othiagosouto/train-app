@@ -41,27 +41,27 @@ kotlin {
         }
 
         commonMain.dependencies {
-            implementation(libs.compose.navigation)
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.compose.navigation)
-
-            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.runtime)
+            implementation(compose.ui)
             implementation(libs.androidx.lifecycle.runtime.compose)
-
+            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.compose.navigation)
+            implementation(libs.connectivity.core)
+            implementation(libs.connectivity.device)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.compose.viewmodel.navigation)
-
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.datetime)
-            implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.core)
             implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.compose.navigation)
+            implementation(libs.jetbrains.viewmodel)
         }
 
         commonTest.dependencies {
