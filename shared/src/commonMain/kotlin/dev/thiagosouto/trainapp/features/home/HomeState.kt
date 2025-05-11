@@ -9,8 +9,6 @@ internal sealed class HomeState(val title: String = "Maintenance Tasks") {
     data class Error(val error: ErrorUiModel) : HomeState()
 
     data class Content(
-        val loading: Boolean,
-        val error: ErrorUiModel?,
         val tasks: List<TaskItemUiModel>
     ) : HomeState()
 }

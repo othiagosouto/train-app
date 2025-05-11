@@ -58,8 +58,6 @@ internal class HomeViewModelTest {
             )
             assertEquals(
                 expected = HomeState.Content(
-                    loading = false,
-                    error = null,
                     tasks = TasksTestUtils.createTasks().tasks.map { task ->
                         TaskItemUiModel(
                             id = task.id,

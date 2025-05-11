@@ -29,8 +29,6 @@ internal class HomeViewModel(
                     }
                     _uiState.emit(
                         HomeState.Content(
-                            loading = false,
-                            error = null,
                             tasks = items
                         )
                     )
@@ -62,9 +60,7 @@ private fun handleError(
         is HomeState.Idle -> HomeState.Error(error)
 
         is HomeState.Content -> state.copy(
-            loading = false,
-            error = error,
-            tasks = emptyList()
+            tasks = state.tasks
         )
     }
 }
@@ -78,9 +74,7 @@ private suspend fun reduceLoading(uiState: MutableStateFlow<HomeState>) {
         is HomeState.Content -> {
             uiState.emit(
                 state.copy(
-                    loading = true,
-                    error = null,
-                    tasks = emptyList()
+                    tasks = state.tasks
                 )
             )
         }
