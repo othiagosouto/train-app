@@ -7,7 +7,7 @@ import kotlinx.datetime.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class TasksCacheTest {
+internal class TasksCacheTest {
 
     @Test
     fun `Given Events Then validates emission`() = runTest {

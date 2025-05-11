@@ -1,4 +1,4 @@
-package dev.thiagosouto.trainapp.remote
+package dev.thiagosouto.trainapp.data.remote
 
 import dev.thiagosouto.trainapp.data.TaskService
 import dev.thiagosouto.trainapp.domain.DomainException
