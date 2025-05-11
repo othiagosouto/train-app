@@ -21,7 +21,10 @@ import dev.thiagosouto.trainapp.features.home.HomeViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-internal fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
+internal fun HomeScreen(
+    viewModel: HomeViewModel = koinViewModel(),
+    onItemClick: (String) -> Unit = {}
+) {
     val state = viewModel.uiState.collectAsState()
     Column(
         modifier = Modifier
@@ -37,7 +40,7 @@ internal fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
             is HomeState.Idle -> LaunchedEffect(true) { viewModel.load() }
             is HomeState.Loading -> ProgressBar()
             is HomeState.Error -> ErrorScreen(uiState.error)
-            is HomeState.Content -> TasksList(uiState.tasks)
+            is HomeState.Content -> TasksList(uiState.tasks, onItemClick)
         }
     }
 }

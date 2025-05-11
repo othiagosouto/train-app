@@ -1,5 +1,6 @@
 package dev.thiagosouto.trainapp.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,14 +23,16 @@ import androidx.compose.ui.unit.sp
 import dev.thiagosouto.trainapp.features.home.TaskItemUiModel
 
 @Composable
-internal fun TasksList(list: List<TaskItemUiModel>) {
+internal fun TasksList(list: List<TaskItemUiModel>, onItemClick: (String) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(list, key = { it.id }) { item ->
-            Card {
+            Card(
+                modifier = Modifier.clickable(enabled = true, onClick = { onItemClick(item.id) })
+            ) {
                 Row(
                     modifier = Modifier.fillMaxWidth()
                         .heightIn(56.dp)
