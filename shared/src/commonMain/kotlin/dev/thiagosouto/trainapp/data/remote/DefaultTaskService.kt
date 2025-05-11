@@ -1,6 +1,6 @@
 package dev.thiagosouto.trainapp.data.remote
 
-import dev.thiagosouto.trainapp.data.TasksRemote
+import dev.thiagosouto.trainapp.data.TaskService
 import dev.thiagosouto.trainapp.data.model.BaseUrl
 import dev.thiagosouto.trainapp.domain.Task
 import io.ktor.client.HttpClient
@@ -9,11 +9,11 @@ import io.ktor.client.statement.bodyAsText
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.json.Json
 
-class DefaultTasksRemote(
+class DefaultTaskService(
     private val httpClient: HttpClient,
     private val baseUrl: BaseUrl,
     private val json: Json
-) : TasksRemote {
+) : TaskService {
     private val serviceUrl: String
         get() = "$baseUrl/mootazltaief/6f6ae202071449386b57eb3876ce25ee/raw" +
                 "/dfa58b73b5fea4951276f89e09b4267d81c0895b/tasks.kt"

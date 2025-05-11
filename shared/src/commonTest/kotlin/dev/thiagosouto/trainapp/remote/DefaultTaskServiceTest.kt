@@ -1,6 +1,6 @@
 package dev.thiagosouto.trainapp.remote
 
-import dev.thiagosouto.trainapp.data.TasksRemote
+import dev.thiagosouto.trainapp.data.TaskService
 import dev.thiagosouto.trainapp.domain.DomainException
 import dev.thiagosouto.trainapp.domain.Task
 import dev.thiagosouto.trainapp.utils.TasksTestUtils
@@ -13,10 +13,10 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-internal class DefaultTasksRemoteTest {
+internal class DefaultTaskServiceTest {
     @Test
     fun `Given successful request Then returns tasks`() = runTest {
-        val tasksRemote: TasksRemote = createTasksRemote()
+        val tasksRemote: TaskService = createTasksRemote()
 
         assertEquals(
             expected = TasksTestUtils.createTasks().tasks.map {
@@ -36,7 +36,7 @@ internal class DefaultTasksRemoteTest {
 
     @Test
     fun `Given ClientRequestException request Then throws ClientException`() = runTest {
-        val tasksRemote: TasksRemote = createTasksRemote(
+        val tasksRemote: TaskService = createTasksRemote(
             mockEngine = createMockEngine(
                 content = "",
                 statusCode = HttpStatusCode.NotFound
@@ -51,7 +51,7 @@ internal class DefaultTasksRemoteTest {
 
     @Test
     fun `Given ServerResponseException request Then throws ServerException`() = runTest {
-        val tasksRemote: TasksRemote = createTasksRemote(
+        val tasksRemote: TaskService = createTasksRemote(
             mockEngine = createMockEngine(
                 content = "",
                 statusCode = HttpStatusCode.InternalServerError

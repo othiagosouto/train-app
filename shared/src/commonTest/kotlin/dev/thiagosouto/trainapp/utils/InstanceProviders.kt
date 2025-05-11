@@ -1,8 +1,8 @@
 package dev.thiagosouto.trainapp.utils
 
-import dev.thiagosouto.trainapp.data.TasksRemote
+import dev.thiagosouto.trainapp.data.TaskService
 import dev.thiagosouto.trainapp.data.model.BaseUrl
-import dev.thiagosouto.trainapp.data.remote.DefaultTasksRemote
+import dev.thiagosouto.trainapp.data.remote.DefaultTaskService
 import dev.thiagosouto.trainapp.data.remote.serviceResponseValidator
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
@@ -45,7 +45,7 @@ fun createTasksRemote(
         statusCode = HttpStatusCode.OK
     ),
     baseUrl: BaseUrl = "https://gist.githubusercontent.com"
-): TasksRemote = DefaultTasksRemote(
+): TaskService = DefaultTaskService(
     json = json,
     httpClient = HttpClient(mockEngine)
     {

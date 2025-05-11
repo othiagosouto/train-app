@@ -5,7 +5,7 @@ import dev.thiagosouto.trainapp.domain.Task
 /**
  * Fetch tasks from remote data source
  */
-fun interface TasksRemote {
+fun interface TaskService {
 
     suspend fun fetch(): List<Task>
 }

@@ -1,8 +1,8 @@
 package dev.thiagosouto.trainapp.data.di
 
-import dev.thiagosouto.trainapp.data.TasksRemote
+import dev.thiagosouto.trainapp.data.TaskService
 import dev.thiagosouto.trainapp.data.model.TasksBaseUrl
-import dev.thiagosouto.trainapp.data.remote.DefaultTasksRemote
+import dev.thiagosouto.trainapp.data.remote.DefaultTaskService
 import dev.thiagosouto.trainapp.data.remote.serviceResponseValidator
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -25,8 +25,8 @@ val dataModule = module {
             serviceResponseValidator()
         }
     }
-    single<TasksRemote> {
-        DefaultTasksRemote(
+    single<TaskService> {
+        DefaultTaskService(
             json = get(),
             httpClient = get(),
             baseUrl = TasksBaseUrl
