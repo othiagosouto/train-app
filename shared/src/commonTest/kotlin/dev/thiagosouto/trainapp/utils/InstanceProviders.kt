@@ -1,6 +1,9 @@
 package dev.thiagosouto.trainapp.utils
 
+import dev.thiagosouto.trainapp.data.DefaultTasksRepository
 import dev.thiagosouto.trainapp.data.TaskService
+import dev.thiagosouto.trainapp.data.TasksRepository
+import dev.thiagosouto.trainapp.data.local.TasksCache
 import dev.thiagosouto.trainapp.data.model.BaseUrl
 import dev.thiagosouto.trainapp.data.remote.DefaultTaskService
 import dev.thiagosouto.trainapp.data.remote.serviceResponseValidator
@@ -39,7 +42,7 @@ fun createMockEngine(
         )
     }
 
-fun createTasksRemote(
+fun createTaskService(
     mockEngine: MockEngine = createMockEngine(
         content = TasksTestUtils.createTasksJson(),
         statusCode = HttpStatusCode.OK
@@ -55,4 +58,15 @@ fun createTasksRemote(
         serviceResponseValidator()
     },
     baseUrl = baseUrl
+)
+
+fun createTaskRepository(statusCode: HttpStatusCode = HttpStatusCode.OK): TasksRepository = DefaultTasksRepository(
+    taskService = createTaskService(
+        mockEngine = createMockEngine(
+            content = TasksTestUtils.createTasksJson(),
+            statusCode = statusCode
+        )
+    ),
+    tasksCache = TasksCache(),
+    dispatchers = AppDispatchers()
 )
