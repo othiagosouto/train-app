@@ -15,7 +15,8 @@ class DefaultTasksRemote(
     private val json: Json
 ) : TasksRemote {
     private val serviceUrl: String
-        get() = "$baseUrl/mootazltaief/6f6ae202071449386b57eb3876ce25ee/raw/dfa58b73b5fea4951276f89e09b4267d81c0895b/tasks.kt"
+        get() = "$baseUrl/mootazltaief/6f6ae202071449386b57eb3876ce25ee/raw" +
+                "/dfa58b73b5fea4951276f89e09b4267d81c0895b/tasks.kt"
 
     override suspend fun fetch(): List<Task> {
         // Github return it as plain text since this is not a REST API, and because of that we can't

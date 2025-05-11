@@ -13,7 +13,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import kotlin.test.fail
 
-const val tasksUrl =
+const val TasksUrl =
     "https://gist.githubusercontent.com/mootazltaief/6f6ae202071449386b57eb3876ce25ee/raw" +
             "/dfa58b73b5fea4951276f89e09b4267d81c0895b/tasks.kt"
 
@@ -24,7 +24,7 @@ val json = Json {
 
 fun createMockEngine(content: String, statusCode: HttpStatusCode = HttpStatusCode.OK) =
     MockEngine { request ->
-        if (request.url.toString() != tasksUrl) {
+        if (request.url.toString() != TasksUrl) {
             fail("Unexpected request URL: ${request.url}")
         }
         respond(

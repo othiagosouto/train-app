@@ -1,5 +1,4 @@
 package dev.thiagosouto.trainapp.data.model
 
 typealias BaseUrl = String
-
-const val tasksServiceBaseUrl: BaseUrl = "https://api.railwayapi.com/v2/"
+const val TasksBaseUrl: BaseUrl = "https://api.railwayapi.com/v2/"
