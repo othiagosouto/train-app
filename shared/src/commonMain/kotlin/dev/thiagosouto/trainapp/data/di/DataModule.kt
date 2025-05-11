@@ -15,11 +15,9 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-val urlModule = {
-    module {
-        factory<BaseUrl> {
-            TasksBaseUrl
-        }
+val urlModule = module {
+    factory<BaseUrl> {
+        TasksBaseUrl
     }
 }
 
