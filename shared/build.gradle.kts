@@ -62,6 +62,9 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.compose.navigation)
             implementation(libs.jetbrains.viewmodel)
+            implementation(libs.connectivity.core)
+            implementation(libs.connectivity.device)
+            implementation(libs.connectivity.compose.device)
         }
 
         commonTest.dependencies {

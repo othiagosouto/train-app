@@ -1,6 +1,5 @@
 package dev.thiagosouto.trainapp.features.home.view
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import dev.thiagosouto.trainapp.components.connectivity.ConnectivityStatusBar
 import dev.thiagosouto.trainapp.components.error.ErrorScreen
 import dev.thiagosouto.trainapp.components.ProgressBar
 import dev.thiagosouto.trainapp.components.TasksList
@@ -32,6 +32,7 @@ internal fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
             title = { Text(state.value.title) },
             modifier = Modifier.fillMaxWidth()
         )
+        ConnectivityStatusBar()
         when (val uiState = state.value) {
             is HomeState.Idle -> LaunchedEffect(true) { viewModel.load() }
             is HomeState.Loading -> ProgressBar()
@@ -39,5 +40,4 @@ internal fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
             is HomeState.Content -> TasksList(uiState.tasks)
         }
     }
-
 }
