@@ -1,10 +1,14 @@
 package dev.thiagosouto.trainapp.features.home.view
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -19,11 +23,15 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 internal fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
     val state = viewModel.uiState.collectAsState()
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.safeDrawing)
     ) {
+        TopAppBar(
+            title = { Text(state.value.title) },
+            modifier = Modifier.fillMaxWidth()
+        )
         when (val uiState = state.value) {
             is HomeState.Idle -> LaunchedEffect(true) { viewModel.load() }
             is HomeState.Loading -> ProgressBar()

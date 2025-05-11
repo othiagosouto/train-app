@@ -30,7 +30,6 @@ internal class HomeViewModel(
                     _uiState.emit(
                         HomeState.Content(
                             loading = false,
-                            title = "Maintenance Tasks",
                             error = null,
                             tasks = items
                         )
