@@ -21,7 +21,7 @@ internal class HomeViewModel(
             tasksRepository.tasks
                 .collect { tasks ->
                     val items = tasks.map { task ->
-                        HomeState.Content.ItemUiModel(
+                        TaskItemUiModel(
                             id = task.id,
                             headline = "Train ${task.trainId} - ${task.taskType}",
                             supportingText = "Priority: ${task.priorityLevel}"

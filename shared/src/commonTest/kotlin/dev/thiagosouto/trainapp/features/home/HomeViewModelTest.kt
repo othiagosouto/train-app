@@ -62,7 +62,7 @@ internal class HomeViewModelTest {
                     title = "Maintenance Tasks",
                     error = null,
                     tasks = TasksTestUtils.createTasks().tasks.map { task ->
-                        HomeState.Content.ItemUiModel(
+                        TaskItemUiModel(
                             id = task.id,
                             headline = "Train ${task.trainId} - ${task.taskType}",
                             supportingText = "Priority: ${task.priorityLevel}"
