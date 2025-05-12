@@ -8,6 +8,7 @@ import androidx.navigation.toRoute
 import dev.thiagosouto.trainapp.components.connectivity.di.connectivityStatusBarModule
 import dev.thiagosouto.trainapp.data.di.dataModule
 import dev.thiagosouto.trainapp.data.di.urlModule
+import dev.thiagosouto.trainapp.features.details.di.detailsModule
 import dev.thiagosouto.trainapp.features.details.view.TaskDetailsScreen
 import dev.thiagosouto.trainapp.features.home.di.homeModule
 import dev.thiagosouto.trainapp.features.home.view.HomeScreen
@@ -25,7 +26,15 @@ fun App() {
     val navController = rememberNavController()
 
     KoinApplication(
-        application = { modules(urlModule, dataModule, homeModule, connectivityStatusBarModule) }) {
+        application = {
+            modules(
+                urlModule,
+                dataModule,
+                homeModule,
+                connectivityStatusBarModule,
+                detailsModule
+            )
+        }) {
         NavHost(navController = navController, startDestination = HomeRoute) {
             composable<HomeRoute> {
                 HomeScreen(onItemClick = { taskId -> navController.navigate(TaskDetailsRoute(taskId = taskId)) })
@@ -33,7 +42,7 @@ fun App() {
             composable<TaskDetailsRoute> { backStackEntry ->
                 val route: TaskDetailsRoute = backStackEntry.toRoute()
 
-                TaskDetailsScreen(route.taskId)
+                TaskDetailsScreen(route.taskId, onHomeIconClick = { navController.popBackStack() })
             }
         }
     }

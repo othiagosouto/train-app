@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asSharedFlow
  * This class is used to cache tasks in memory and emit them as a flow.
  */
 class TasksCache {
-    private val _tasks = MutableSharedFlow<List<Task>>()
+    private val _tasks = MutableSharedFlow<List<Task>>(replay = 1)
     val tasks = _tasks.asSharedFlow()
 
     suspend fun emit(items: List<Task>) {
