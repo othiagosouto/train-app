@@ -4,15 +4,24 @@ import app.cash.turbine.test
 import dev.jordond.connectivity.Connectivity
 import dev.thiagosouto.trainapp.fakes.ConnectivityFake
 import dev.thiagosouto.trainapp.fakes.TaskRepositoryFake
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import kotlin.test.AfterTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class ConnectivityViewModelTest {
+
+    @AfterTest
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
 
     private val noInternetError = Error(
         hasError = true,
@@ -20,7 +29,9 @@ internal class ConnectivityViewModelTest {
     )
 
     @Test
-    fun `Given no internet Then Emits error`() = runTest(UnconfinedTestDispatcher()) {
+    fun `Given no internet Then Emits error`() = runTest {
+        val testDispatcher = UnconfinedTestDispatcher(testScheduler)
+        Dispatchers.setMain(testDispatcher)
         val fakeRepositoryFake = TaskRepositoryFake(false)
         val connectivityFake = ConnectivityFake(Connectivity.Status.Disconnected)
         val viewModel = ConnectivityViewModel(connectivityFake, fakeRepositoryFake)
@@ -41,24 +52,28 @@ internal class ConnectivityViewModelTest {
     }
 
     @Test
-    fun `Given failed fetching data Then Emits until limit of retry`() =
-        runTest(UnconfinedTestDispatcher()) {
-            val fakeRepositoryFake = TaskRepositoryFake(true)
-            val connectivityFake = ConnectivityFake(Connectivity.Status.Disconnected)
-            val viewModel = ConnectivityViewModel(connectivityFake, fakeRepositoryFake)
-            viewModel.error.test {
-                connectivityFake.emitStatus(Connectivity.Status.Connected(true))
+    fun `Given failed fetching data Then Emits until limit of retry`() = runTest {
+        val testDispatcher = UnconfinedTestDispatcher(testScheduler)
+        Dispatchers.setMain(testDispatcher)
+        val fakeRepositoryFake = TaskRepositoryFake(true)
+        val connectivityFake = ConnectivityFake(Connectivity.Status.Disconnected)
+        val viewModel = ConnectivityViewModel(connectivityFake, fakeRepositoryFake)
+        viewModel.error.test {
+            connectivityFake.emitStatus(Connectivity.Status.Connected(true))
+            assertEquals(
+                expected = noInternetError.message,
+                actual = awaitItem()
+            )
 
-                assertEquals(
-                    expected = listOf(
-                        noInternetError.message,
-                        "Failed to automatically fetch data, trying again",
-                        "Failed to automatically fetch data many times, please check your connection"
-                    ),
-                    actual = listOf(awaitItem(), awaitItem(), awaitItem())
-                )
-            }
+            assertEquals(
+                expected = listOf(
+                    "Failed to automatically fetch data, trying again",
+                    "Failed to automatically fetch data many times, please check your connection"
+                ),
+                actual = listOf(awaitItem(), awaitItem())
+            )
         }
+    }
 
     private data class Error(
         val hasError: Boolean,
