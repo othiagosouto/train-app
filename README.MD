@@ -2,6 +2,22 @@
 A mobile application for tracking train-related tasks, built with Kotlin and Jetpack Compose for a
 modern, multiplatform UI experience.
 
+## Screenshots
+
+### Android
+| Home                             | Details                                |
+|----------------------------------|----------------------------------------|
+| ![Home](images/android_home.png) | ![Details](images/android_details.png) |
+
+### iOS
+| Home                         | Details                            |
+|------------------------------|------------------------------------|
+| ![Home](images/ios_home.png) | ![Details](images/ios_details.png) |
+
+
+## Config
+- Android Studio Meerkat | 2024.3.1 Patch 2
+
 ## CI
 TrainApp uses GitHub Actions to automate CI/CD workflows, ensuring consistent 
 builds, tests, and deployments.
