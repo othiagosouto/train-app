@@ -32,24 +32,16 @@ internal class HomeViewModelTest {
 
         viewModel.uiState.test {
             viewModel.load()
-
             assertEquals(
-                expected = HomeState.Idle,
-                actual = awaitItem()
-            )
-
-            assertEquals(
-                expected = HomeState.Loading,
-                actual = awaitItem()
-            )
-            assertEquals(
-                expected = HomeState.Error(
-                    error = ErrorUiModel(
-                        "Client Error",
-                        "Operation failed. Please seek support."
+                expected = listOf(
+                    HomeState.Idle, HomeState.Loading, HomeState.Error(
+                        error = ErrorUiModel(
+                            "Client Error",
+                            "Operation failed. Please seek support."
+                        )
                     )
                 ),
-                actual = awaitItem()
+                actual = listOf(awaitItem(), awaitItem(), awaitItem())
             )
         }
     }
@@ -62,27 +54,18 @@ internal class HomeViewModelTest {
 
         viewModel.uiState.test {
             viewModel.load()
-
             assertEquals(
-                expected = HomeState.Idle,
-                actual = awaitItem()
-            )
-
-            assertEquals(
-                expected = HomeState.Loading,
-                actual = awaitItem()
-            )
-            assertEquals(
-                expected = HomeState.Content(
-                    tasks = TasksTestUtils.createTasks().tasks.map { task ->
-                        TaskItemUiModel(
-                            id = task.id,
-                            headline = "Train ${task.trainId} - ${task.taskType}",
-                            supportingText = "Priority: ${task.priorityLevel}"
-                        )
-                    }
-                ),
-                actual = awaitItem()
+                expected = listOf(
+                    HomeState.Idle, HomeState.Loading, HomeState.Content(
+                        tasks = TasksTestUtils.createTasks().tasks.map { task ->
+                            TaskItemUiModel(
+                                id = task.id,
+                                headline = "Train ${task.trainId} - ${task.taskType}",
+                                supportingText = "Priority: ${task.priorityLevel}"
+                            )
+                        }
+                    )),
+                actual = listOf(awaitItem(), awaitItem(), awaitItem())
             )
         }
     }

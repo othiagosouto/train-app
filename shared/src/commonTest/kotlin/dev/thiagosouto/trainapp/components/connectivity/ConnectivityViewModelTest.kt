@@ -61,16 +61,12 @@ internal class ConnectivityViewModelTest {
         viewModel.error.test {
             connectivityFake.emitStatus(Connectivity.Status.Connected(true))
             assertEquals(
-                expected = noInternetError.message,
-                actual = awaitItem()
-            )
-
-            assertEquals(
                 expected = listOf(
+                    noInternetError.message,
                     "Failed to automatically fetch data, trying again",
                     "Failed to automatically fetch data many times, please check your connection"
                 ),
-                actual = listOf(awaitItem(), awaitItem())
+                actual = listOf(awaitItem(), awaitItem(), awaitItem())
             )
         }
     }
